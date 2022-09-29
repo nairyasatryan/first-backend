@@ -1,4 +1,3 @@
-
 import sqlite from "sqlite3";
 const SQlite3 = sqlite.verbose();
 let books = [];
@@ -16,68 +15,40 @@ export const addBook = (req, res) => {
   let title = req.body["title"];
   let language = req.body["language"];
   let status = req.body["status"];
-
-  // const book = {
-  //   author: author,
-  //   title: title,
-  //   language: language,
-  //   status: status,
-  // };
-
-  // books.push({ ...book, id: nanoid() });
   db.run(
     "INSERT INTO books (author, title, language, status, id) VALUES(?,?,?,?,?)",
     author,
     title,
     language,
-    status,
-    
+    status
   );
 
-  res.send(
-    `The book ${title}  with all inforamtion added to the database!`
-  );
+  res.send(`The book ${title}  with all inforamtion added to the database!`);
 };
 
 export const getBook = (req, res) => {
-  const  id  = req.params;
+  const id = req.params;
 
   const foundBook = books.find((book) => book.id === id);
   res.send(foundBook);
 };
 
 export const updateBook = (req, res) => {
-  const  {id}  = req.params;
+  const { id } = req.params;
   let author = req.body["author"];
   let title = req.body["title"];
   let language = req.body["language"];
   let status = req.body["status"];
 
- let sql = `UPDATE books SET author = ?, title = ? , language = ?, status =? WHERE id = ${id}`
- db.run(sql, author, title, language, status,)
-
-  // if (author) {
-  //   book.author = author;
-  // }
-
-  // if (title) {
-  //   book.title = title;
-  // }
-
-  // if (language) {
-  //   book.language = language;
-  // }
-
-  // if (status) {
-  //   book.status = status;
-  // }
+  let sql = `UPDATE books SET author = ?, title = ? , language = ?, status =? WHERE id = ${id}`;
+  db.run(sql, author, title, language, status);
 
   res.send(`Book with the id ${id} has been updated`);
 };
 
 export const deleteBook = (req, res) => {
-  const {id}  = req.params;
+  const { id } = req.params;
   let sql = "DELETE FROM books WHERE id = ? ";
-  db.run(sql, id)
+  db.run(sql, id);
   res.send(`Book with the id ${id} deleted from the database`);
 };
