@@ -8,7 +8,7 @@ db.run(
 export const getBooks = (req, res) => {
   db.all("SELECT * FROM books", function (err, rows)  {
     res.send(rows);
-    console.log(rows);
+  
   })
  
 };
@@ -44,14 +44,17 @@ export const updateBook = (req, res) => {
   let status = req.body["status"];
 
   let sql = `UPDATE books SET author = ?, title = ? , language = ?, status =? WHERE id = ${id}`;
-  db.run(sql, author, title, language, status);
+  db.run(sql, author, title, language, status,);
 
-  res.send(`Book with the id ${id} has been updated`);
+  res.send(req.body)
+
+
+  
 };
 
 export const deleteBook = (req, res) => {
   const { id } = req.params;
   let sql = "DELETE FROM books WHERE id = ? ";
-  db.run(sql, id);
+  db.run(sql, id,);
   res.send("Data deleted successfully");
 };
