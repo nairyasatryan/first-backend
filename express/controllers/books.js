@@ -1,13 +1,16 @@
 import sqlite from "sqlite3";
 const SQlite3 = sqlite.verbose();
-let books = [];
 const db = new SQlite3.Database("bookData.db");
 
 db.run(
   "CREATE TABLE IF NOT EXISTS books (author TEXT NOT NULL, title TEXT NOT NULL, language TEXT NOT NULL, status TEXT NOT NULL, id INTEGER PRIMARY KEY AUTOINCREMENT )"
 );
 export const getBooks = (req, res) => {
-  res.send(books);
+  db.all("SELECT * FROM books", function (err, rows)  {
+    res.send(rows);
+    console.log(rows);
+  })
+ 
 };
 
 export const addBook = (req, res) => {
@@ -23,7 +26,7 @@ export const addBook = (req, res) => {
     status
   );
 
-  res.send(`The book ${title}  with all inforamtion added to the database!`);
+  res.send("Data added successfully")
 };
 
 export const getBook = (req, res) => {
@@ -50,5 +53,5 @@ export const deleteBook = (req, res) => {
   const { id } = req.params;
   let sql = "DELETE FROM books WHERE id = ? ";
   db.run(sql, id);
-  res.send(`Book with the id ${id} deleted from the database`);
+  res.send("Data deleted successfully");
 };
