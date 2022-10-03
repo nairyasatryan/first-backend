@@ -26,10 +26,10 @@ export const addBook = (req, res) => {
     status
   );
 
-  res.send("Data added successfully")
+  res.send(JSON.stringify({masage: "Data added successfully"}))
 };
 
-;
+
 
 export const updateBook = (req, res) => {
   const { id } = req.params;
@@ -51,5 +51,5 @@ export const deleteBook = (req, res) => {
   const { id } = req.params;
   let sql = "DELETE FROM books WHERE id = ? ";
   db.run(sql, id,);
-  res.send("Data deleted successfully");
+  res.send(JSON.stringify({ masage:"Data deleted successfully"}));
 };
