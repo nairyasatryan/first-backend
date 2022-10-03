@@ -29,12 +29,7 @@ export const addBook = (req, res) => {
   res.send("Data added successfully")
 };
 
-export const getBook = (req, res) => {
-  const id = req.params;
-
-  const foundBook = books.find((book) => book.id === id);
-  res.send(foundBook);
-};
+;
 
 export const updateBook = (req, res) => {
   const { id } = req.params;
@@ -42,10 +37,10 @@ export const updateBook = (req, res) => {
   let title = req.body["title"];
   let language = req.body["language"];
   let status = req.body["status"];
-
+  
   let sql = `UPDATE books SET author = ?, title = ? , language = ?, status =? WHERE id = ${id}`;
   db.run(sql, author, title, language, status,);
-
+  
   res.send(req.body)
 
 
